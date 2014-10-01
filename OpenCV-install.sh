@@ -11,7 +11,7 @@
 # Check OS
 if [ ! $(command -v apt-get) ]; then
   echo -e "\e[1;31mERROR: Not a Debian-based linux system. Impossible to install OpenCV with this script\e[0;39m"
-  exit 0
+  exit 1
 fi
 
 
@@ -24,7 +24,7 @@ END_CMD2=$?
 if [ $END_CMD1 -ne 0 -o $END_CMD2 -ne 0 ]
 then
 	echo -e "\e[1;31mERROR: \e[39mWhen Updating the system\e[0m"
-	exit 0
+	exit 1
 fi
 
 
@@ -34,7 +34,7 @@ sudo apt-get install build-essential -y
 if [ $? -ne 0 ] 
 then
     echo -e "\e[1;31mERROR: \e[39mWhen Installing Compiler\e[0m"
-    exit 0
+    exit 1
 fi
 
 
@@ -44,7 +44,7 @@ sudo apt-get install cmake git libgtk2.0-dev pkg-config python-dev python-numpy 
 if [ $? -ne 0 ] 
 then
     echo -e "\e[1;31mERROR: \e[39mWhen Installing Required Requisites\e[0m"
-    exit 0
+    exit 1
 fi
 
 
@@ -72,7 +72,7 @@ then
 	    echo -e "       Check your internet connection" 
 	    echo -e "       Check this url: https://github.com/Itseez/opencv.git" 
 	    echo -e "       Check your git program\e[0m" 
-	    exit 0
+	    exit 1
 	fi
 else
 	cd ~/source/opencv
@@ -85,7 +85,7 @@ else
 	    echo -e "       Check your internet connection" 
 	    echo -e "       Check this url: https://github.com/Itseez/opencv.git" 
 	    echo -e "       Check your git program\e[0m" 
-	    exit 0
+	    exit 1
 	fi
 fi
 
@@ -100,7 +100,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
 if [ $? -ne 0 ] 
 then
     echo -e "\e[1;31mERROR: \e[39mWhen generating Makefile for the installation\e[0m" 
-    exit 0
+    exit 1
 fi
 
 
@@ -110,7 +110,7 @@ make
 if [ $? -ne 0 ]
 then
     echo -e "\e[1;31mERROR: \e[39mWhen Compiling\e[0m" 
-    exit 0
+    exit 1
 fi
 
 
@@ -120,7 +120,7 @@ sudo make install
 if [ $? -ne 0 ]
 then
     echo -e "\e[1;31mERROR: \e[39mWhen Installing\e[0m" 
-    exit 0
+    exit 1
 else
     echo -e "\e[1;32mInstallation has SUCCEED! :-) \e[0;39m" 
 
@@ -136,4 +136,4 @@ else
 
 fi
 
-exit 1
+exit 0
